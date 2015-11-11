@@ -18,13 +18,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#define f first
-#define s second
-#define pb push_back
-#define mp make_pair
 #define inf 2000000000
-#define mod 1000000007
-#define ll long long
 using namespace std;
 
 int parent[6000001];
@@ -33,13 +27,13 @@ int leftchild[6000001];
 int rightchild[6000001];
 int a[6000001];
 
-int n, root, counter, height;
+int n, root, cnt, height;
 
 void Insert(int value, int it = root, int depth = 1) {
 	if (!root) 
 	{
-		counter++;
-		root = counter;
+		cnt++;
+		root = cnt;
 		key[root] = value;
 		height = max(height, depth);
 		return;
@@ -48,8 +42,8 @@ void Insert(int value, int it = root, int depth = 1) {
 	{
 		if (!leftchild[it]) 
 		{
-			counter++;
-			leftchild[it] = counter;
+			cnt++;
+			leftchild[it] = cnt;
 			key[leftchild[it]] = value;
 			parent[leftchild[it]] = it;
 			height = max(height, depth + 1);
@@ -63,8 +57,8 @@ void Insert(int value, int it = root, int depth = 1) {
 	{
 		if (!rightchild[it]) 
 		{
-			counter++;
-			rightchild[it] = counter;
+			cnt++;
+			rightchild[it] = cnt;
 			key[rightchild[it]] = value;
 			parent[rightchild[it]] = it;
 			height = max(height, depth + 1);
@@ -79,12 +73,12 @@ int main()
 {
 	int input;
 	srand(time(NULL));
-	cin >> input;	//425000
+	cin >> input;	//575000
 	for (int t = 1; t <= 20; ++t) 
 	{
 		n = input * t;
 
-		root = counter = height = 0;
+		root = cnt = height = 0;
 		for (int i = 1; i <= 6000000; ++i)
 		{
 			parent[i] = 0;
@@ -100,16 +94,16 @@ int main()
 			a[i] = rand() % inf + 1;
 		}
 
-		clock_t startingTime, endingTime;
-		startingTime = clock();
+		clock_t time;
+		time = clock();
 		for (int i = 1; i <= n; ++i) 
 		{
 			Insert(a[i]);
 		}
 			
-		endingTime = clock();
+		time = clock() - time;
 
-		cout << (double)(endingTime - startingTime)/(CLOCKS_PER_SEC) << endl;
+		cout << (double)(time/(CLOCKS_PER_SEC)) << endl;
 
 		cout << "Height: " << height << endl;
 
